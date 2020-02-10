@@ -19,9 +19,21 @@ import com.liqian.cms.service.ArticleService;
 import com.liqian.cms.service.CategoryService;
 import com.liqian.cms.service.ChannelService;
 import com.liqian.cms.service.SlideService;
+import com.lq.maven.demo.MavenDemo;
 
 @Controller
 public class AdminController {
+	
+	
+	//想使用到  liqian.maven.demo项目中的MavenDemo类的test方法
+	
+	
+	public static void main(String[] args) {
+		int i = MavenDemo.test();
+		System.out.println(i);
+	}
+	
+	
 	@Autowired
 	private ArticleService articleService;
 	@Autowired
