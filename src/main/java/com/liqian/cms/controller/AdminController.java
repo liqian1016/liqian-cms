@@ -4,12 +4,16 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bw.utils.StringUtil;
 import com.github.pagehelper.PageInfo;
 import com.liqian.cms.domain.Article;
 import com.liqian.cms.domain.Channel;
@@ -19,21 +23,11 @@ import com.liqian.cms.service.ArticleService;
 import com.liqian.cms.service.CategoryService;
 import com.liqian.cms.service.ChannelService;
 import com.liqian.cms.service.SlideService;
-import com.lq.maven.demo.MavenDemo;
+import com.liqian.cms.service.UserService;
+import com.liqian.cms.utils.CMSJsonUtil;
 
 @Controller
 public class AdminController {
-	
-	
-	//想使用到  liqian.maven.demo项目中的MavenDemo类的test方法
-	
-	
-	public static void main(String[] args) {
-		int i = MavenDemo.test();
-		System.out.println(i);
-	}
-	
-	
 	@Autowired
 	private ArticleService articleService;
 	@Autowired
@@ -42,6 +36,8 @@ public class AdminController {
 	private SlideService slideService;
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private UserService userService;
 	
 	//首页的入口
 	@RequestMapping("index")
@@ -109,4 +105,60 @@ public class AdminController {
 		
 		return "my/index";
 	}
+
+	
+	@RequestMapping("admin/login")
+	public String toLogin() {
+		return "admin/login";
+	}
+
+	//后台管理中心的登录
+	@ResponseBody
+	@RequestMapping("login") // 智能用于get请求
+	public Object login(User user, HttpSession session) {
+		CMSJsonUtil cju = new CMSJsonUtil();
+		// 验证非空
+		boolean uname = StringUtil.isNotEmpty(user.getUsername());
+		boolean upwd = StringUtil.isNotEmpty(user.getPassword());
+		// 如果为空
+		if (!uname || !upwd) {
+			cju.setMsg("用户名密码不能为空");
+			return cju;
+		}
+
+		// 登录去
+		User u = userService.login(user);
+		// 用户名不存在
+		if (u == null) {
+			cju.setMsg("用户名不存在");
+			return cju;
+		}
+		//验证是否是管理员
+		if(!u.getRole().equals("1")) {
+			cju.setMsg("请输入管理员帐户");
+			return cju;
+		}
+		
+		// 验证是否被禁用
+		if (u.getLocked() == 1) {
+			cju.setMsg("该用户被禁用,请练习管理员");
+			return cju;
+		}
+		// 验证密码
+		//把输入的密码  加密  过后 和数据库中的已有的加密的密码比对
+		String md5Password = DigestUtils.md5Hex(user.getPassword());
+		
+		if (!md5Password.equals(u.getPassword())) {
+			cju.setMsg("密码错误");
+			return cju;
+		}
+
+		// 登录成功  会把user对象存到session作用域
+		session.setAttribute("user", u);
+		// 登录成功跳转到 主页
+		cju.setMsg("true");
+		return cju;
+	}
+		
+	
 }

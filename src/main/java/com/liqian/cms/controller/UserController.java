@@ -119,7 +119,7 @@ public class UserController {
 			return cju;
 		}
 
-		// 把用户存到session作用域
+		// 登录成功  会把user对象存到session作用域
 		session.setAttribute("user", u);
 		// 登录成功跳转到 主页
 		cju.setMsg("true");

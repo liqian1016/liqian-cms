@@ -26,12 +26,12 @@
 			return;
 		} 
 		//如果验证通过 去登录
-		$.post("/user/login",$("#loginForm").serialize(),function(json){
+		$.post("/login",$("#loginForm").serialize(),function(json){
 		
 			if(json.msg=="true"){//登录成功
 				$("#alert").hide();
 				//跳转到 主页面
-				location.href="/index";
+				location.href="/admin";
 				
 			}else{//登录失败
 				
@@ -69,10 +69,7 @@
 						<div class="col-4">
 							<button type="button" class="btn btn-primary" onclick="login();">登录</button>
 						</div>
-						<div class="col-8">
-							<small id="emailHelp" class="form-text text-muted">没有帐号，去<a
-								href="/user/reg">注册</a></small>
-						</div>
+						
 					</div>
 				</form>
 			</div>

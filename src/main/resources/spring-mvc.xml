@@ -36,6 +36,21 @@
 		</property>
 	</bean>
 	
+	<!--  配置拦截器-->
+	<mvc:interceptors>
+		<!--个人中心/后台管理员登录的拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/my"/>
+			<mvc:mapping path="/admin"/>
+			<bean class="com.liqian.cms.interceptor.MyInterceptor"></bean>
+		</mvc:interceptor>
+		<!-- 各个方法执行时间的拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/index"/>
+			<bean class="com.liqian.cms.interceptor.TimeInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
 	<!-- 不拦截静态资源 -->
 	<mvc:default-servlet-handler />
 	<!-- mvc注解驱动 -->
