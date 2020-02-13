@@ -21,10 +21,9 @@
 	<div class="container-fluid">
 		<!-- 上 -->
 		<div class="row">
-			<div class="col-md-12"
-				style="background-color: white; height: 40px;">
-					<jsp:include page="/WEB-INF/view/index/top.jsp"></jsp:include>
-				</div>
+			<div class="col-md-12" style="background-color: white; height: 40px;">
+				<jsp:include page="/WEB-INF/view/index/top.jsp"></jsp:include>
+			</div>
 		</div>
 
 
@@ -36,12 +35,13 @@
 
 				<ul style="margin-top: 8px">
 
-					<li class="channel-item ${article.channelId==null?'active':'' }"><a href="/index" class="channel">热门</a></li>
+					<li class="channel-item ${article.channelId==null?'active':'' }"><a
+						href="/index" class="channel">热门</a></li>
 
 					<c:forEach items="${channelList }" var="c">
 
-						<li class="channel-item" ${article.channelId==c.id?'active':'' }><a href="/index?channelId=${c.id}"
-							class="channel">${c.name }</a></li>
+						<li class="channel-item" ${article.channelId==c.id?'active':'' }><a
+							href="/index?channelId=${c.id}" class="channel">${c.name }</a></li>
 
 
 					</c:forEach>
@@ -52,7 +52,7 @@
 			<div class="col-md-7 split">
 				<!-- 第一次进入 没有选择栏目  默认显示轮播图和热门文章 -->
 				<c:if test="${article.channelId==null}">
-					
+
 					<!--  轮播图-->
 					<div id="carouselExampleCaptions" class="carousel slide"
 						data-ride="carousel">
@@ -90,14 +90,13 @@
 					<div id="hotArticle">
 
 						<ul class="list-unstyled">
-							
+
 							<c:forEach items="${articleList }" var="a">
 								<li class="media"><img src="/pic/${a.picture }"
 									class="mr-3" alt="..." width="160px" height="100px">
 									<div class="media-body text-center">
 										<h5 class="mt-0 mb-1 ">
-											<a href="/indexs/select?id=${a.id }"
-												style="font-size: 15px;" 
+											<a href="/indexs/select?id=${a.id }" style="font-size: 15px;"
 												data-target="#exampleModal">${a.title }</a>
 										</h5>
 										<br> ${a.user.username }&nbsp;&nbsp;&nbsp;
@@ -113,21 +112,23 @@
 				</c:if>
 				<!-- 选择了栏目  只显示栏目下的 文章 和分类-->
 				<c:if test="${article.channelId!=null}">
-						<!-- 栏目下分类菜单 -->
+					<!-- 栏目下分类菜单 -->
 					<div class="subchannel">
 						<ul class="sub-list" style="width: 660px;">
-							<li class="sub-item ${article.categoryId==null?'sub-selected':'' }"><a
-									href="/index/?channelId=${article.channelId }">全部</a></li>
+							<li
+								class="sub-item ${article.categoryId==null?'sub-selected':'' }"><a
+								href="/index/?channelId=${article.channelId }">全部</a></li>
 							<c:forEach items="${cates}" var="category">
 
-								<li class="sub-item ${article.categoryId==category.id?'sub-selected':'' }"><a
+								<li
+									class="sub-item ${article.categoryId==category.id?'sub-selected':'' }"><a
 									href="/index/?channelId=${article.channelId }&categoryId=${category.id}">${category.name }</a></li>
 							</c:forEach>
 
 						</ul>
-						</div>
-						<hr>
-				
+					</div>
+					<hr>
+
 					<div id="article">
 
 						<ul class="list-unstyled">
@@ -137,8 +138,7 @@
 									<div class="media-body text-center">
 										<h5 class="mt-0 mb-1 ">
 											<a href="/indexs/select?id=${a.id }" onclick="look(${a.id})"
-												style="font-size: 15px;"
-												data-target="#exampleModal">${a.title }</a>
+												style="font-size: 15px;" data-target="#exampleModal">${a.title }</a>
 										</h5>
 										<br> ${a.user.username }&nbsp;&nbsp;&nbsp;
 										<fmt:formatDate value="${a.created }" pattern="yyyy-MM-dd" />
@@ -150,8 +150,8 @@
 
 
 					</div>
-				
-				
+
+
 				</c:if>
 
 
@@ -166,6 +166,24 @@
 						</c:forEach>
 					</ul>
 				</div>
+				<hr style="border-color: red">
+				<span>24小时热文</span>
+				<c:forEach items="${list}" var="a">
+				<div class="card">
+  				<div class="card-body">
+				<div class="media">
+				
+					<img style="width: 70px;height: 70px" src="/pic/${a.picture }" class="mr-3" alt="...">
+					<div class="media-body">
+						<h5 class="mt-0"><a href="">${a.title }</a></h5>
+					</div>
+				
+				</div>
+				</div>
+				</div>
+			</c:forEach>
+				
+
 			</div>
 
 		</div>

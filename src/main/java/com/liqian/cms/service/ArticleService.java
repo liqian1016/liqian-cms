@@ -19,6 +19,8 @@ public interface ArticleService {
 	public List<Category> selectsCategory(int id);
 	//添加
 	public void add(Article article);
+	//查询24小时内文章  >=createTime
+	public List<Article> select24Article(String createTime);
 
 
 }

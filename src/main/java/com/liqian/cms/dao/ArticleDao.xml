@@ -51,6 +51,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by created desc
 	</select>
 	
+	<!--//查询24小时内文章  -->
+	<select id="select24Article" resultMap="articleMap">
+		select * from cms_article where created>=#{createTime}
+	</select>
+	
 	
 	<!-- updatew文章 -->
 	<update id="update">

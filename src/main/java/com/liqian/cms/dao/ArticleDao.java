@@ -2,6 +2,8 @@ package com.liqian.cms.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.liqian.cms.domain.Article;
 import com.liqian.cms.domain.Category;
 import com.liqian.cms.domain.Channel;
@@ -19,5 +21,7 @@ public interface ArticleDao {
 	public List<Category> selectsCategory(int id);
 	//添加
 	public void add(Article article);
+	//查询24小时内文章
+	public List<Article> select24Article(@Param("createTime")String createTime);
 
 }
