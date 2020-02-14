@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-;
 //模糊查询
 function check(){
 	var title=$("[name='title']").val();
@@ -24,6 +23,7 @@ function check(){
 
 	function changeStatus(status,obj){
 		var id=$(obj).val();
+		alert(id);
 		//获得谁要修改为那种状态
 		 $.post("/article/updateArcitle",{id:id,status:status},function(msg){
 			if(msg){
@@ -43,17 +43,20 @@ function check(){
 
 	//查看详情
 	function look(id){
-		id=id;
+		//id=id;
+		alert(id);
 		//根据id  查询文章
 		$.post(
 			"/article/select",
 			{id:id},
 			function(obj){
+				
 				//把值给谁?
 				$("#exampleModalLabel").html(obj.title)	
 				$(".modal-body").html(obj.content);
 				$("[name='id']").val(obj.id);
-			}
+			},
+			"json"
 		);
 	}
 </script>

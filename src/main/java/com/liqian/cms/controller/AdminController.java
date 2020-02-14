@@ -81,6 +81,12 @@ public class AdminController {
 		//查询24小时内文章  >=createTime
 		List<Article> list=articleService.select24Article(createTime);
 		model.addAttribute("list", list);
+		
+		
+		//查询热门文章
+		List hotList=articleService.getHotList();
+		model.addAttribute("hotList", hotList);
+		
 		return "index/index";
 	}
 	

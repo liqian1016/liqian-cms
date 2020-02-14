@@ -21,6 +21,8 @@ public interface ArticleService {
 	public void add(Article article);
 	//查询24小时内文章  >=createTime
 	public List<Article> select24Article(String createTime);
+	//查询热门文章
+	public List getHotList();
 
 
 }

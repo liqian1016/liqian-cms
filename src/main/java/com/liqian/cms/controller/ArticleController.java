@@ -64,7 +64,8 @@ public class ArticleController {
 	@ResponseBody
 	@RequestMapping("updateArcitle")
 	public boolean update(Article article) {
-		return service.update(article);
+		boolean b = service.update(article);
+		return b;
 	}
 	
 	@ResponseBody

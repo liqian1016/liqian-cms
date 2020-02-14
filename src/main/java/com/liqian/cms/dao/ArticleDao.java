@@ -12,7 +12,7 @@ public interface ArticleDao {
 	
 	public List<Article> selectsByAdmin(Article article);
 	
-	public void update(Article article);
+	public int update(Article article);
 
 	public Article select(int id);
 	//查询所有的栏目
@@ -23,5 +23,7 @@ public interface ArticleDao {
 	public void add(Article article);
 	//查询24小时内文章
 	public List<Article> select24Article(@Param("createTime")String createTime);
+	//查询热门文章
+	public List getHotList();
 
 }

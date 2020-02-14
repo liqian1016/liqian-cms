@@ -183,7 +183,17 @@
 				</div>
 			</c:forEach>
 				
-
+			<hr style="border-color: red">
+				<span>热门文章</span>
+				<c:forEach items="${hotList}" var="a">
+					<ul class="list-group">
+  <li class="list-group-item"><a href="">${a.title }</a></li>
+</ul>
+				
+					
+				
+				
+			</c:forEach>
 			</div>
 
 		</div>

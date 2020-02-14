@@ -27,13 +27,18 @@ public class ArticleServiceImpl implements ArticleService{
 
 	@Override
 	public boolean update(Article article) {
-		try {
-			articleDao.update(article);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+		
+			int i=articleDao.update(article);
+			if(i>0) {
+				return true;
+			}else {
+				return false;
+			}
+			
+		
+			
+			
+		
 	}
 
 	@Override
@@ -64,6 +69,12 @@ public class ArticleServiceImpl implements ArticleService{
 	public List<Article> select24Article(String createTime) {
 		// TODO Auto-generated method stub
 		return articleDao.select24Article(createTime);
+	}
+	//查询热门文章
+	@Override
+	public List getHotList() {
+		// TODO Auto-generated method stub
+		return articleDao.getHotList();
 	}
 	
 	
