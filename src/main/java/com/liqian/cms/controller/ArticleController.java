@@ -43,6 +43,9 @@ public class ArticleController {
 		model.addAttribute("list", info.getList());
 		model.addAttribute("article", article);
 		model.addAttribute("info", info);
+		
+		//
+		
 		return "my/article";
 	}
 	
